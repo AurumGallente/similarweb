@@ -102,8 +102,13 @@ class Helper {
             $query = "UPDATE data_items SET data= '$data', is_parsed=true WHERE url='$site'";
             echo "#get info about $site \r\n";
             Database::getInstance()->query($query);
-            Helper::insertSimilarSites($output);
+            
+        } else {
+            $query = "DELETE FROM data_items WHERE is_parsed=false AND url='$site'";
+            echo "# no info about $site so it was deleted \r\n";
+            Database::getInstance()->query($query);
         }
+        Helper::insertSimilarSites($output);
     }
 
     public static function getSitesToParse(&$AC) {

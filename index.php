@@ -1,5 +1,4 @@
 <?php
-
 # Setting time and memory limits
 ini_set('max_execution_time', 0);
 ini_set('memory_limit', '128M');
@@ -35,15 +34,13 @@ $AC->load_proxy_list(
 );
 $AC->load_useragent_list(AC_DIR . DIRECTORY_SEPARATOR . 'AngryCurl/import' . DIRECTORY_SEPARATOR . 'useragent_list.txt');
 
-$AC->get("https://www.similarweb.com/website/work.ua");
-
-$sites = Helper::getSitesToParse($AC);
-if (count($sites) > 0) {
-    foreach ($sites as $site) {
-        $AC->get("https://www.similarweb.com/website/$site");
+for ($i = 1; $i <= 6000; $i++) {
+    $sites = Helper::getSitesToParse($AC);
+    if (count($sites) > 0) {
+        foreach ($sites as $site) {
+            $AC->get("https://www.similarweb.com/website/$site");
+        }
     }
+    $AC->execute(5);
 }
-$AC->execute(5);
-//$AC->flush_requests();
-
 Database::getInstance()->connectionClose();
