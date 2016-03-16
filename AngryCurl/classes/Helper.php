@@ -124,5 +124,11 @@ class Helper {
         }
         return $sites;
     }
+    public static function fetchAll(){
+        $db = Database::getInstance();
+        $query = "SELECT url, data FROM data_items WHERE is_parsed";
+        $data = $db->query($query)->result;
+        return $data;
+    }
     
 }
