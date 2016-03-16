@@ -105,6 +105,7 @@ class AngryCurl extends RollingCurl {
         
         # writing debug
         self::add_debug_msg("# Console mode activated");
+        self::add_debug_msg("# Memory limit usage is set to:".ini_get("memory_limit"));
     }
 
     /**
