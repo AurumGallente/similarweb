@@ -6,7 +6,7 @@ class Config {
     public $proxyPassword = '';
     public $dbOptions = [
         'host' => '',
-        'port' => '',
+        'port' => '5432',
         'user' => '',
         'password' => '',
         'dbname' => '',
