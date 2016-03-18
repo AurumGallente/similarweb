@@ -34,7 +34,7 @@ $AC->load_proxy_list(
 );
 $AC->load_useragent_list(AC_DIR . DIRECTORY_SEPARATOR . 'AngryCurl/import' . DIRECTORY_SEPARATOR . 'useragent_list.txt');
 
-for ($i = 1; $i <= 60; $i++) {
+for ($i = 1; $i <= 600; $i++) {
     $sites = Helper::getSitesToParse($AC);
     if (count($sites) > 0) {
         foreach ($sites as $site) {
@@ -44,4 +44,4 @@ for ($i = 1; $i <= 60; $i++) {
     $AC->execute(5);
     $AC->flush_requests();
 }
-Database::getInstance()->connectionClose();
+Helper::close();

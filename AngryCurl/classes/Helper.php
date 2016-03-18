@@ -130,5 +130,18 @@ class Helper {
         $data = $db->query($query)->result;
         return $data;
     }
+    public static function close(){
+        $db = Database::getInstance();
+        $query = "delete from data_items
+    where exists (select 1
+                  from data_items t2
+                  where t2.url = data_items.url and
+                        t2.data = data_items.data and
+                        t2.is_parsed = data_items.is_parsed
+                        
+                 );";
+        $db->query($query);
+        Database::getInstance()->connectionClose();
+    }
     
 }
