@@ -1,7 +1,7 @@
 <?php
 # Setting time and memory limits
 ini_set('max_execution_time', 0);
-ini_set('memory_limit', '128M');
+ini_set('memory_limit', '256M');
 ini_set('display_startup_errors', 1);
 ini_set('display_errors', 1);
 error_reporting(-1);
@@ -41,7 +41,7 @@ for ($i = 1; $i <= 600; $i++) {
             $AC->get("https://www.similarweb.com/website/$site");
         }
     }
-    $AC->execute(5);
+    $AC->execute(30);
     $AC->flush_requests();
 }
 Helper::close();

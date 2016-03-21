@@ -99,7 +99,7 @@ class Helper {
         preg_match_all($pattern, $output, $matches);
         $data = isset($matches[1][0]) ? $matches[1][0] : null;
         if ($data) {
-            $query = "UPDATE data_items SET data= '$data', is_parsed=true WHERE url='$site'";
+            $query = "UPDATE data_items SET data= '$data', is_parsed=true WHERE url='$site' AND is_parsed=false";
             echo "#get info about $site \r\n";
             Database::getInstance()->query($query);
             
