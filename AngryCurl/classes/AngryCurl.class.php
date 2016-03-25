@@ -90,7 +90,7 @@ class AngryCurl extends RollingCurl {
     {
         self::$console_mode = true;
         
-        echo "<pre>";
+        echo "<pre id='data'>";
         
         # Internal Server Error fix in case no apache_setenv() function exists
         if (function_exists('apache_setenv'))
@@ -457,7 +457,7 @@ class AngryCurl extends RollingCurl {
      */
     public static function print_debug()
     {
-        echo "<pre>";
+        echo "<pre='data'>";
         echo htmlspecialchars( implode("\n", self::$debug_info) );
         echo "</pre>";
     }

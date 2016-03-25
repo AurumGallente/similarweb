@@ -237,6 +237,7 @@ class RollingCurl {
         $request = array_shift($this->requests);
         $options = $this->get_options($request);
         array_push($options, array(CURLOPT_PROXYUSERPWD => Config::getInstance()->proxyLogin.':'.Config::getInstance()->proxyPassword));
+        //arraty_push($options);
         curl_setopt_array($ch, $options);
         $output = curl_exec($ch);
         $info = curl_getinfo($ch);
@@ -370,7 +371,8 @@ class RollingCurl {
             $options[CURLOPT_HEADER] = 0;
             $options[CURLOPT_HTTPHEADER] = $headers;
         }
-        $options[CURLOPT_PROXYUSERPWD] = Config::getInstance()->proxyLogin.':'.Config::getInstance()->proxyPassword;        
+        $options[CURLOPT_PROXYUSERPWD] = Config::getInstance()->proxyLogin.':'.Config::getInstance()->proxyPassword; 
+        $options[CURLOPT_FOLLOWLOCATION] = true;
         return $options;
     }
 

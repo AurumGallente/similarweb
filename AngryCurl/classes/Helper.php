@@ -104,7 +104,7 @@ class Helper {
             Database::getInstance()->query($query);
             
         } else {
-            $query = "DELETE FROM data_items WHERE is_parsed=false AND url='$site'";
+            $query = "DELETE FROM data_items WHERE is_parsed=false AND url='$site' AND in_priority=false";
             echo "# no info about $site so it was deleted \r\n";
             Database::getInstance()->query($query);
         }
@@ -113,7 +113,7 @@ class Helper {
 
     public static function getSitesToParse(&$AC) {
         $db = Database::getInstance();
-        $query = "SELECT url FROM data_items WHERE is_parsed=false LIMIT 100";
+        $query = "SELECT url FROM data_items WHERE is_parsed=false ORDER BY in_priority DESC LIMIT 100";
         $results = $db->query($query)->result;
         $AC->flush_requests();
         $sites = array();
@@ -126,7 +126,7 @@ class Helper {
     }
     public static function fetchAll(){
         $db = Database::getInstance();
-        $query = "SELECT url, data FROM data_items WHERE is_parsed";
+        $query = "SELECT url, data FROM data_items WHERE is_parsed=true";
         $data = $db->query($query)->result;
         return $data;
     }
@@ -140,7 +140,7 @@ class Helper {
                         t2.is_parsed = data_items.is_parsed
                         
                  );";
-        $db->query($query);
+        //$db->query($query);
         Database::getInstance()->connectionClose();
     }
     

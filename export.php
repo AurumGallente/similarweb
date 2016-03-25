@@ -1,9 +1,9 @@
 <?php
 ini_set('max_execution_time', 0);
-//ini_set('memory_limit', '128M');
-ini_set('display_startup_errors', 1);
-ini_set('display_errors', 1);
-error_reporting(-1);
+ini_set('memory_limit', '1024M');
+//ini_set('display_startup_errors', 1);
+//ini_set('display_errors', 1);
+//error_reporting(-1);
 define('AC_DIR', dirname(__FILE__));
 require_once( AC_DIR . DIRECTORY_SEPARATOR . 'AngryCurl/classes' . DIRECTORY_SEPARATOR . 'Helper.php');
 require_once( AC_DIR . DIRECTORY_SEPARATOR . 'AngryCurl/classes' . DIRECTORY_SEPARATOR . 'db.php');
@@ -18,9 +18,11 @@ foreach($result as $k=>$v){
     $json = json_decode($v['data'], true);
     $data[$v['url']] = array();
     //var_dump($json['overview']['WeeklyTrafficNumbers']);
-    foreach($json['overview']['WeeklyTrafficNumbers'] as $date=>$visits){        
-        $data[$v['url']][$date] = $visits;
-        in_array($date,$header) ? null : array_push($header, $date);
+    if(isset($json['overview']['WeeklyTrafficNumbers'])){
+        foreach($json['overview']['WeeklyTrafficNumbers'] as $date=>$visits){        
+            $data[$v['url']][$date] = $visits;
+            in_array($date,$header) ? null : array_push($header, $date);
+        }        
     }
 }
 
