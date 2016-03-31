@@ -94,7 +94,7 @@ class Helper {
     }
 
     public static function updateSingleSite($output, $info, $request) {
-        $site = str_replace('https://www.similarweb.com/website/','',$request->url);
+        $site = strtolower(str_replace('https://www.similarweb.com/website/','',$request->url));
         $pattern = '/Sw.preloadedData = (.*);(\r\n|\r|\n)/';
         preg_match_all($pattern, $output, $matches);
         $data = isset($matches[1][0]) ? $matches[1][0] : null;
@@ -105,7 +105,7 @@ class Helper {
             
         } else {
             $query = "DELETE FROM data_items WHERE is_parsed=false AND url='$site' AND in_priority=false";
-            echo "# no info about $site so it was deleted \r\n";
+            echo "# no info about $site so it was deleted  <i>(unless it is in top-50)</i>\r\n";
             Database::getInstance()->query($query);
         }
         Helper::insertSimilarSites($output);
