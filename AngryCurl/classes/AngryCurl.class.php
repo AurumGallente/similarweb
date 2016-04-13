@@ -261,7 +261,11 @@ class AngryCurl extends RollingCurl {
     {
         # writing debug
         self::add_debug_msg("# Start loading proxies");
-        
+//        $proxies = Helper::getProxyList();
+//        $input = array();
+//        foreach($proxies as $proxy){
+//            $input[] = $proxy['address'];
+//        }
         # defining proxiess
         if(is_array($input))
         {

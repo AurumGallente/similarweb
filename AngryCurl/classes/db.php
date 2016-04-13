@@ -41,8 +41,16 @@ class Database {
         $this->result = $results;
         return self::$instance;
     }
+    public function getSite($url){
+        $url = pg_escape_string($url);
+        $query = "select data, to_char(timestamp, 'YYYY-MM-DD') as timestamp from data_items where url='$url' order by timestamp asc";
+        return self::query($query)->result;
+    }
 
     public function connectionClose() {
+        pg_close(self::$conn);
+    }
+    public function __destruct() {
         pg_close(self::$conn);
     }
 

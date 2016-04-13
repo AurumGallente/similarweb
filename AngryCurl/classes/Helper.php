@@ -76,7 +76,7 @@ class Helper {
             $values = "";
             $max = count($data);
             for ($i = 0; $i <= $max - 1; $i++) {
-                $values.="('{$data[$i]}'),";
+                $values.=strtolower("('{$data[$i]}'),");
             }
             $values = rtrim($values, ",");
             $query = "WITH items as (
@@ -100,11 +100,11 @@ class Helper {
         $data = isset($matches[1][0]) ? $matches[1][0] : null;
         if ($data) {
             $query = "UPDATE data_items SET data= '$data', is_parsed=true WHERE url='$site' AND is_parsed=false";
-            echo "#get info about $site \r\n";
+            echo "#get info about $site \r\n";            
             Database::getInstance()->query($query);
             
         } else {
-            $query = "DELETE FROM data_items WHERE is_parsed=false AND url='$site' AND in_priority=false";
+            $query = "DELETE FROM data_items WHERE is_parsed=false AND url='$site' AND in_priority=false";            
             echo "# no info about $site so it was deleted  <i>(unless it is in top-50)</i>\r\n";
             Database::getInstance()->query($query);
         }
@@ -142,6 +142,17 @@ class Helper {
                  );";
         //$db->query($query);
         Database::getInstance()->connectionClose();
+    }
+    public static function getProxyList(){
+        $db = Database::getInstance();
+        $query = "SELECT * FROM proxy_list";
+        return $db->query($query)->result;
+    }
+    public static function getProxy($address){
+        $db = Database::getInstance();
+        $query = "select pl.address as address, pl.type as type, pa.login as login, pa.password as password from proxy_list pl inner join proxy_auth pa ON (pl.auth_id=pa.id)
+where pl.address = '$address' LIMIT 1";
+        return $db->query($query)->result[0];
     }
     
 }

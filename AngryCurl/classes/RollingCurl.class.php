@@ -236,7 +236,8 @@ class RollingCurl {
         $ch = curl_init();
         $request = array_shift($this->requests);
         $options = $this->get_options($request);
-        array_push($options, array(CURLOPT_PROXYUSERPWD => Config::getInstance()->proxyLogin.':'.Config::getInstance()->proxyPassword));
+        //array_push($options, array(CURLOPT_PROXYUSERPWD => Config::getInstance()->proxyLogin.':'.Config::getInstance()->proxyPassword));
+        //array_push($options);
         //arraty_push($options);
         curl_setopt_array($ch, $options);
         $output = curl_exec($ch);
@@ -371,7 +372,12 @@ class RollingCurl {
             $options[CURLOPT_HEADER] = 0;
             $options[CURLOPT_HTTPHEADER] = $headers;
         }
-        $options[CURLOPT_PROXYUSERPWD] = Config::getInstance()->proxyLogin.':'.Config::getInstance()->proxyPassword; 
+        $options[CURLOPT_PROXYUSERPWD] = Config::getInstance()->proxyLogin.':'.Config::getInstance()->proxyPassword;
+        //var_dump($request->options['10004']);exit;
+        $proxy = Helper::getProxy($request->options['10004']);
+        if($proxy['type']=='socks'){
+            $options[CURLOPT_PROXYTYPE] = CURLPROXY_SOCKS5;
+        }
         $options[CURLOPT_FOLLOWLOCATION] = true;
         return $options;
     }

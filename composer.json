@@ -1,0 +1,12 @@
+{
+    "name": "similarproxy",
+    "authors": [
+        {
+            "name": "aurum",
+            "email": "aurum.gallente@gmail.com"
+        }
+    ],
+    "require": {
+        "slim/slim": "^3.0"
+    }
+}
