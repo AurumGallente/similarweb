@@ -126,7 +126,7 @@ class Helper {
     }
     public static function fetchAll(){
         $db = Database::getInstance();
-        $query = "SELECT url, data FROM data_items WHERE is_parsed=true";
+        $query = "SELECT url, data FROM data_items WHERE is_parsed=true order by id asc";
         $data = $db->query($query)->result;
         return $data;
     }
@@ -154,5 +154,8 @@ class Helper {
 where pl.address = '$address' LIMIT 1";
         return $db->query($query)->result[0];
     }
-    
+    public static function query($query){
+        $db = Database::getInstance();
+        return $db->query($query)->result;
+    }    
 }

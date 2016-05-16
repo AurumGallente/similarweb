@@ -41,7 +41,7 @@ $AC->init_console();
 $AC->load_proxy_list(
         AC_DIR . DIRECTORY_SEPARATOR . 'AngryCurl/import' . DIRECTORY_SEPARATOR . 'topguard.txt',
         # optional: number of threads
-        100,
+        200,
         # optional: proxy type
         'http',
         # optional: target url to check

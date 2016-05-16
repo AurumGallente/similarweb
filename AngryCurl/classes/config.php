@@ -5,11 +5,11 @@ class Config {
     public $proxyLogin = '';
     public $proxyPassword = '';
     public $dbOptions = [
-        'host' => '',
+        'host' => 'localhost',
         'port' => '5432',
-        'user' => '',
+        'user' => 'postgres',
         'password' => '',
-        'dbname' => '',
+        'dbname' => 'similarweb',
         'persistent' => false        
     ];
     private static $instance = null;
